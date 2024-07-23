@@ -33,18 +33,27 @@ module datamemory #(
     waddress = {{22{1'b0}}, {a[8:2], {2{1'b0}}}};
     Datain = wd;
     Wr = 4'b0000;
-
+  // adicionar as instrucoes de load e store  
     if (MemRead) begin
       case (Funct3)
         3'b010:  //LW
         rd <= Dataout;
         default: rd <= Dataout;
+        /*
+          LB = 000
+          LH = 001
+          LBU = 100
+        */
       endcase
     end else if (MemWrite) begin
       case (Funct3)
         3'b010: begin  //SW
           Wr <= 4'b1111;
           Datain <= wd;
+          /*  
+            SB = 000
+            SW = 010
+          */
         end
         default: begin
           Wr <= 4'b1111;
