@@ -14,29 +14,25 @@ module alu#(
     
         always_comb
         begin
-        // adicionar operacoes condicionais e aritmeticas
-            case(Operation)
-            4'b0000:        // AND
-                    ALUResult = SrcA & SrcB;
-            4'b0010:        // ADD
-                    ALUResult = SrcA + SrcB;
-            4'b1000:        // BEQ
-                    ALUResult = (SrcA == SrcB) ? 1 : 0;
-        /*
-            OR = 0011
-            XOR = 0100
-            SRAI = 0101
-            SLLI = 0110
-            SLT E SLTI = 0111
-            SRLI = 1001
-            BGE = 1010
-            BLT = 1011
-            BNE = 1100
-            LUI = 1101
-        */
-            default:
-                    ALUResult = 0;
-            endcase
+                case(Operation)
+                        4'b0000: ALUResult = $signed(SrcA) + $signed(SrcB); //add
+                        4'b0001: ALUResult = $signed(SrcA) - $signed(SrcB); //sub
+                        4'b0010: ALUResult = SrcA & SrcB; //and
+                        4'b0011: ALUResult = SrcA | SrcB; //or
+                        4'b0100: ALUResult = SrcA ^ SrcB; //xor
+                        4'b0101: ALUResult = SrcA << SrcB; // slli
+                        4'b0110: ALUResult = SrcA >> SrcB; // srli
+                        4'b0111: ALUResult = $signed(SrcA) >>$ $signed(SrcB); // srai
+                        4'b1000: ALUResult = ($signed(SrcA)< SrcB) ? 1 : 0; // slti
+                        4'b1001: ALUResult = ($signed(SrcA) == $signed(SrcB)) ? 1 : 0; // slt
+                        4'b1010: ALUResult = $signed(SrcA) + SrcB; // addi
+                        4'b1011: ALUResult = (SrcA == SrcB) ? 1 : 0; // beq
+                        4'b1100: ALUResult = (SrcA != SrcB) ? 1 : 0; // bne
+                        4'b1101: ALUResult = ($signed(SrcA) < $signed(SrcB)) ? 1 : 0; // blt
+                        4'b1110: ALUResult = ($signed(SrcA) >= $signed(SrcB)) ? 1 : 0; // bge
+                        4'b1111: ALUResult = {SrcB, 12'b0}; // lui
+                        default: ALUResult = 0;
+                endcase
         end
 endmodule
 
