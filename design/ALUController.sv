@@ -10,6 +10,7 @@ module ALUController (
     output logic [3:0] Operation  // operation selection for ALU
 );
 
+    // os 4 bits de cada instrução estão em alu.sv
 always_comb begin 
     case (ALUOp)
         2'b01: begin
@@ -23,7 +24,7 @@ always_comb begin
                 3'b100: begin // blt
                     Operation = 4'b1101; end
                 3'b101: begin //bge
-                    Operation = 4'b1110;  end
+                    Operation = 4'b1110;  end 
                 default: begin end
 
             endcase end
