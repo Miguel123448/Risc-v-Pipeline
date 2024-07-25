@@ -19,18 +19,24 @@ module Controller (
     output logic Branch  //0: branch is not taken; 1: branch is taken
 );
 
-  logic [6:0] R_TYPE, LW, SW, BR;
+  logic [6:0] R_TYPE, LOAD, STORE, BR, I_TYPE, LUI, JAL, JALR;
 
-  assign R_TYPE = 7'b0110011;  //add,and
-  assign LW = 7'b0000011;  //lw
-  assign SW = 7'b0100011;  //sw
-  assign BR = 7'b1100011;  //beq
+  assign R_TYPE = 7'b0110011;  // instrucoes reg
+  assign LOAD = 7'b0000011;  // instrucoes de load
+  assign STORE = 7'b0100011;  //instrucoes de store
+  assign BR = 7'b1100011;  // instrucoes de branch
+  assign I_TYPE = 7'b0010011; // instrucoes imediatas
+  assign LUI = 7'b0110111; // instrucao lui
+  assign JAL = 7'b1101111; // instrucao jump
+  assign JALR = 7'b1100111
 
-  assign ALUSrc = (Opcode == LW || Opcode == SW);
-  assign MemtoReg = (Opcode == LW);
-  assign RegWrite = (Opcode == R_TYPE || Opcode == LW);
-  assign MemRead = (Opcode == LW);
-  assign MemWrite = (Opcode == SW);
+
+// ajustar as condicoes 
+  assign ALUSrc = (Opcode == LOAD || Opcode == STORE);
+  assign MemtoReg = (Opcode == LOAD);
+  assign RegWrite = (Opcode == R_TYPE || Opcode == LOAD);
+  assign MemRead = (Opcode == LOAD);
+  assign MemWrite = (Opcode == STORE);
   assign ALUOp[0] = (Opcode == BR);
   assign ALUOp[1] = (Opcode == R_TYPE);
   assign Branch = (Opcode == BR);
