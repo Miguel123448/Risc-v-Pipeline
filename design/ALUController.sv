@@ -10,19 +10,97 @@ module ALUController (
     output logic [3:0] Operation  // operation selection for ALU
 );
 
-  assign Operation[0] = ((ALUOp == 2'b10) && (Funct3 == 3'b110)) ||  // R\I-or
-      ((ALUOp == 2'b10) && (Funct3 == 3'b101) && (Funct7 == 7'b0000000)) ||  // R\I->>
-      ((ALUOp == 2'b10) && (Funct3 == 3'b101) && (Funct7 == 7'b0100000));  // R\I->>>
+always_comb begin 
+    case (ALUOp)
+        2'b01: begin
 
-  assign Operation[1] = (ALUOp == 2'b00) ||  // LW\SW
-      ((ALUOp == 2'b10) && (Funct3 == 3'b000)) ||  // R\I-add
-      ((ALUOp == 2'b10) && (Funct3 == 3'b101) && (Funct7 == 7'b0100000));  // R\I->>>
+            case(Funct3)
 
-  assign Operation[2] =  ((ALUOp==2'b10) && (Funct3==3'b101) && (Funct7==7'b0000000)) || // R\I->>
-      ((ALUOp == 2'b10) && (Funct3 == 3'b101) && (Funct7 == 7'b0100000)) ||  // R\I->>>
-      ((ALUOp == 2'b10) && (Funct3 == 3'b001)) ||  // R\I-<<
-      ((ALUOp == 2'b10) && (Funct3 == 3'b010));  // R\I-<
+                3'b000: begin //beq
+                    Operation = 4'b1011; end
+                3'b001:begin //bne
+                    Operation = 4'b1100; end
+                3'b100: begin // blt
+                    Operation = 4'b1101; end
+                3'b101: begin //bge
+                    Operation = 4'b1110;  end
+                default: begin end
 
-  assign Operation[3] = (ALUOp == 2'b01) ||  // BEQ
-      ((ALUOp == 2'b10) && (Funct3 == 3'b010));  // R\I-<
+            endcase end
+
+        2'b10: begin
+            case(Funct3): 
+                3'b000: begin
+
+                    case(Funct7)
+
+                        0: begin //add
+                            Operation = 0; end
+                        4'b0100000: begin // sub
+                            Operation = 4'b0001; end
+                        default: begin// addi 
+                            Operation = 4'b1010; end
+
+                    endcase end
+
+                3'b010: begin
+
+                    case(Funct7)
+
+                        0: begin //slt
+                            Operation = 4'b1001; end
+                        default: begin // slti
+                            Operation = 4'b1000; end
+
+                    endcase end
+
+                3'b001: begin
+
+                    case(Funct7)
+
+                        0: begin //slli
+                            Operation = 4'b0101; end
+                        default begin end
+
+                    endcase end
+
+                3'b101: begin
+
+                    case(Funct7)
+
+                        0: begin // srli
+                            Operation = 4'b0110; end
+                        7'b0100000: begin //srai
+                            Operation = 4'b0111; end
+                        default begin end
+
+                    endcase end
+
+                3'b100: begin
+
+                    Operation = 4'b0100; end //xor
+                    default begin end
+
+                3'b110: begin
+
+                    Operation = 4'b0011; end //or
+                    default begin end
+
+                3'b111: begin
+
+                    Operation = 4'b0010; end //and
+                    default begin end
+
+            endcase end
+
+        2'b11: begin //lui
+
+            Operation = 4'b1111; end
+            default begin end
+
+        default begin end  
+
+    endcase
+ 
+end
 endmodule
