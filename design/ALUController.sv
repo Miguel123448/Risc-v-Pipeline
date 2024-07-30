@@ -30,14 +30,14 @@ always_comb begin
             endcase end
 
         2'b10: begin
-            case(Funct3): 
+            case(Funct3) 
                 3'b000: begin
 
                     case(Funct7)
 
                         0: begin //add
                             Operation = 0; end
-                        4'b0100000: begin // sub
+                        7'b0100000: begin // sub
                             Operation = 4'b0001; end
                         default: begin// addi 
                             Operation = 4'b1010; end
@@ -80,24 +80,20 @@ always_comb begin
                 3'b100: begin
 
                     Operation = 4'b0100; end //xor
-                    default begin end
 
                 3'b110: begin
 
                     Operation = 4'b0011; end //or
-                    default begin end
 
                 3'b111: begin
 
                     Operation = 4'b0010; end //and
-                    default begin end
 
             endcase end
 
         2'b11: begin //lui
 
             Operation = 4'b1111; end
-            default begin end
 
         default begin end  
 

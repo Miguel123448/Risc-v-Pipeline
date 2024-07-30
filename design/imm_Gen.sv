@@ -11,12 +11,9 @@ module imm_Gen (
     // instrucoes de desvio e imediatas
       7'b0000011:  /*I-type load part*/
       Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:20]};
-      /*
-        ADDI = 0010011
-        LUI = 01100111
-        JALR = 1100111
-        JAL = 1101111
-      */
+      
+      7'b0010011:  /*I-type*/
+      Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:20]};
 
       7'b0100011:  /*S-type*/
       Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:25], inst_code[11:7]};

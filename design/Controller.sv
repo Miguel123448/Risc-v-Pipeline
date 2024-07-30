@@ -28,16 +28,16 @@ module Controller (
   assign I_TYPE = 7'b0010011; // instrucoes imediatas
   assign LUI = 7'b0110111; // instrucao lui
   assign JAL = 7'b1101111; // instrucao jump
-  assign JALR = 7'b1100111
+  assign JALR = 7'b1100111;
 
 
 // ajustar as condicoes 
-  assign ALUSrc = (Opcode == LOAD || Opcode == STORE);
+  assign ALUSrc = (Opcode == LOAD || Opcode == STORE || Opcode == I_TYPE || Opcode == LUI);
   assign MemtoReg = (Opcode == LOAD);
-  assign RegWrite = (Opcode == R_TYPE || Opcode == LOAD);
+  assign RegWrite = (Opcode == R_TYPE || Opcode == LOAD || Opcode == LUI || Opcode == I_TYPE);
   assign MemRead = (Opcode == LOAD);
   assign MemWrite = (Opcode == STORE);
-  assign ALUOp[0] = (Opcode == BR);
-  assign ALUOp[1] = (Opcode == R_TYPE);
+  assign ALUOp[0] = (Opcode == BR || Opcode == LUI);
+  assign ALUOp[1] = (Opcode == R_TYPE || Opcode == I_TYPE || Opcode == LUI);
   assign Branch = (Opcode == BR);
 endmodule
