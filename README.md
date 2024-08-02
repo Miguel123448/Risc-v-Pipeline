@@ -40,6 +40,7 @@ Seu objetivo é implementar as instruções restantes listadas abaixo:
 | 18 | `XOR`     |      ✅     |    ✅    |      ✅      |
 | 19 | `OR`      |      ✅     |    ✅    |      ✅      |
 | 20 | `HALT`    |      ❌     |    ❌    |      ❌      |
+| 21 | `LUI`     |      ✅     |    ✅    |      ✅      |
 
 ### Observações
 
