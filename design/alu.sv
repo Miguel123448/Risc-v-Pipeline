@@ -30,7 +30,7 @@ module alu#(
                         4'b1100: ALUResult = (SrcA != SrcB) ? 1 : 0; // bne
                         4'b1101: ALUResult = ($signed(SrcA) < $signed(SrcB)) ? 1 : 0; // blt
                         4'b1110: ALUResult = ($signed(SrcA) >= $signed(SrcB)) ? 1 : 0; // bge
-                        4'b1111: ALUResult = {SrcB, 20'b0}; // lui
+                        4'b1111: ALUResult = {SrcB, 12'b0}; // lui
                         default: begin end
                 endcase
         end

@@ -92,9 +92,10 @@ always_comb begin
             endcase end
 
         2'b11: begin //lui
-
-            Operation = 4'b1111; end
-
+            case(Funct3)
+                3'b000: Operation = 0;
+                default: Operation = 4'b1111; 
+            endcase end
         default begin end  
 
     endcase

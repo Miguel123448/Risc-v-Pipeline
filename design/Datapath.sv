@@ -18,6 +18,8 @@ module Datapath #(
     MemWrite,  // Register file or Immediate MUX // Memroy Writing Enable
     MemRead,  // Memroy Reading Enable
     Branch,  // Branch Enable
+    Jump,  // Jump Enable
+    JumpReg,  // Jump Register Enable
     input  logic [          1:0] ALUOp,
     input  logic [ALU_CC_W -1:0] ALU_CC,         // ALU Control Code ( input of the ALU )
     output logic [          6:0] opcode,
@@ -141,6 +143,8 @@ module Datapath #(
       B.MemWrite <= 0;
       B.ALUOp <= 0;
       B.Branch <= 0;
+      B.Jump <= 0;
+      B.JumpReg <= 0;
       B.Curr_Pc <= 0;
       B.RD_One <= 0;
       B.RD_Two <= 0;
@@ -159,6 +163,8 @@ module Datapath #(
       B.MemWrite <= MemWrite;
       B.ALUOp <= ALUOp;
       B.Branch <= Branch;
+      B.Jump <= Jump;
+      B.JumpReg <= JumpReg;
       B.Curr_Pc <= A.Curr_Pc;
       B.RD_One <= Reg1;
       B.RD_Two <= Reg2;
@@ -221,6 +227,8 @@ module Datapath #(
       B.Curr_Pc,
       B.ImmG,
       B.Branch,
+      B.Jump,
+      B.JumpReg,
       ALUResult,
       BrImm,
       Old_PC_Four,
@@ -235,6 +243,7 @@ module Datapath #(
       C.RegWrite <= 0;
       C.MemtoReg <= 0;
       C.MemRead <= 0;
+      C.Jump <= 0;
       C.MemWrite <= 0;
       C.Pc_Imm <= 0;
       C.Pc_Four <= 0;
@@ -248,6 +257,7 @@ module Datapath #(
       C.RegWrite <= B.RegWrite;
       C.MemtoReg <= B.MemtoReg;
       C.MemRead <= B.MemRead;
+      C.Jump <= B.Jump;
       C.MemWrite <= B.MemWrite;
       C.Pc_Imm <= BrImm;
       C.Pc_Four <= Old_PC_Four;
@@ -284,6 +294,7 @@ module Datapath #(
         begin
       D.RegWrite <= 0;
       D.MemtoReg <= 0;
+      D.Jump <= 0;
       D.Pc_Imm <= 0;
       D.Pc_Four <= 0;
       D.Imm_Out <= 0;
@@ -293,6 +304,7 @@ module Datapath #(
     end else begin
       D.RegWrite <= C.RegWrite;
       D.MemtoReg <= C.MemtoReg;
+      D.Jump <= C.Jump;
       D.Pc_Imm <= C.Pc_Imm;
       D.Pc_Four <= C.Pc_Four;
       D.Imm_Out <= C.Imm_Out;

@@ -17,7 +17,7 @@ module datamemory #(
   logic [31:0] waddress;
   logic [31:0] Datain;
   logic [31:0] Dataout;
-  logic [ 3:0] Wr;
+  logic [3:0] Wr;
 
   Memoria32Data mem32 (
       .raddress(raddress),
@@ -50,11 +50,11 @@ module datamemory #(
         end
         3'b000: begin  //SB
           Wr <= 4'b0001;
-          Datain <= {24'b0, wd[7:0]};
+          Datain[7:0] <= wd;
         end
         3'b001: begin  //SH
           Wr <= 4'b0011;
-          Datain <= {16'b0, wd[15:0]};
+          Datain[15:0] <= wd;
         end
         default: begin
           Wr <= 4'b1111;
