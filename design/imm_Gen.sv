@@ -14,7 +14,7 @@ module imm_Gen (
       
       7'b0010011:  /*I-type*/
       Imm_out = {inst_code[31] ? 20'hFFFFF : 20'b0, inst_code[31:20]};
-      
+
       7'b0110111: // lui
       Imm_out = {12'b0, inst_code[31:12]};      
 
@@ -29,6 +29,22 @@ module imm_Gen (
         inst_code[30:25],
         inst_code[11:8],
         1'b0
+      };
+      
+      7'b1101111:  /*J-type*/
+      Imm_out = {
+        inst_code[31] ? 12'b111111111111 : 12'b0,
+        inst_code[19:12],
+        inst_code[20],
+        inst_code[30:25],
+        inst_code[24:21],
+        1'b0
+      };
+
+      7'b1100111:  /*I-type jump register*/
+      Imm_out = {
+        inst_code[31] ? 20'b11111111111111111111 : 20'b0,
+        inst_code[31:20] 
       };
 
 
