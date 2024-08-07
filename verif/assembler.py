@@ -26,6 +26,21 @@ auipc x6,3
 ```
 """
 
+"""
+Some changes have made to the original script:
+The instruction HALT has been added to the opcode dictionary.
+The function translate_instruction has been modified to include the HALT instruction.
+This instruction follow the following format:
+
+<instruction> <register>
+
+Example:
+halt x0
+
+This change has made because the original script doesn't support the HALT instruction.
+
+"""
+
 import os
 
 # bits 0-6
@@ -67,6 +82,7 @@ opcode = {
  "sra": "0110011",
  "or": "0110011",
  "and": "0110011",
+ "halt": "1111111",
 }
 
 # bits 12-14
@@ -325,6 +341,10 @@ def translate_instruction(instruction):
 		rs2 = bin(int(rs2[1:]))[2:].zfill(5)
 
 		binary = funct7[instr] + rs2 + rs1 + funct3[instr] + rd + opcode[instr]
+
+	elif(instr == "halt"):
+		imm = bin(0)[2:].zfill(25)
+		binary = imm + opcode[instr]
 
 	return binary
 
