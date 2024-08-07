@@ -40,7 +40,7 @@ always_comb begin
                         7'b0100000: begin // sub
                             Operation = 4'b0001; end
                         default: begin// addi 
-                            Operation = 4'b1010; end
+                            Operation = 0; end
 
                     endcase end
 
@@ -49,7 +49,7 @@ always_comb begin
                     case(Funct7)
 
                         0: begin //slt
-                            Operation = 4'b1001; end
+                            Operation = 4'b1000; end
                         default: begin // slti
                             Operation = 4'b1000; end
 
@@ -91,10 +91,10 @@ always_comb begin
 
             endcase end
 
-        2'b11: begin //lui
+        2'b11: begin 
             case(Funct3)
-                3'b000: Operation = 0;
-                default: Operation = 4'b1111; 
+                3'b000: Operation = 0; // jalr
+                default: Operation = 4'b1111; // jal e lui
             endcase end
         default begin end  
 

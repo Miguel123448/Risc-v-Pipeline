@@ -8,6 +8,7 @@ module BranchUnit #(
     input logic Branch,
     input logic Jump,
     input logic JumpReg,
+    input logic Halt,
     input logic [31:0] AluResult,
     output logic [31:0] PC_Imm,
     output logic [31:0] PC_Four,
@@ -20,11 +21,14 @@ module BranchUnit #(
 
   assign PC_Full = {23'b0, Cur_PC};
 
-  assign PC_Imm = (JumpReg) ? AluResult : PC_Full + Imm;
+  assign PC_Imm = (JumpReg) ? AluResult : PC_Full + Imm; // JumpReg -> AluResult (if is a jalr instruction, then the instruction add is called); Otherwise, PC_Full + Imm
   assign PC_Four = PC_Full + 32'b100;
   assign Branch_Sel = (Branch && AluResult[0]) || Jump;  // 0:Branch is taken; 1:Branch is not taken
 
-  assign BrPC = (Branch_Sel) ? PC_Imm : 32'b0;  // Branch -> PC+Imm   // Otherwise, BrPC value is not important
-  assign PcSel = Branch_Sel;  // 1:branch is taken; 0:branch is not taken(choose pc+4)
+  assign BrPC = (Branch_Sel) ? PC_Imm : ((Halt) ? PC_Full : 0);  // Branch -> PC+Imm   // Otherwise, If halt -> PC_Full (brake pc) // otherwise, 0
+  assign PcSel = Branch_Sel || Halt;  // 1:branch is taken; 0:branch is not taken(choose pc+4)
+
 
 endmodule
+
+

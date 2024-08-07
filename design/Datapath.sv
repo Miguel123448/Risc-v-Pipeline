@@ -20,6 +20,7 @@ module Datapath #(
     Branch,  // Branch Enable
     Jump,  // Jump Enable
     JumpReg,  // Jump Register Enable
+    Halt,  // Halt Enable
     input  logic [          1:0] ALUOp,
     input  logic [ALU_CC_W -1:0] ALU_CC,         // ALU Control Code ( input of the ALU )
     output logic [          6:0] opcode,
@@ -145,6 +146,7 @@ module Datapath #(
       B.Branch <= 0;
       B.Jump <= 0;
       B.JumpReg <= 0;
+      B.Halt <= 0;
       B.Curr_Pc <= 0;
       B.RD_One <= 0;
       B.RD_Two <= 0;
@@ -165,6 +167,7 @@ module Datapath #(
       B.Branch <= Branch;
       B.Jump <= Jump;
       B.JumpReg <= JumpReg;
+      B.Halt <= Halt;
       B.Curr_Pc <= A.Curr_Pc;
       B.RD_One <= Reg1;
       B.RD_Two <= Reg2;
@@ -229,6 +232,7 @@ module Datapath #(
       B.Branch,
       B.Jump,
       B.JumpReg,
+      B.Halt,
       ALUResult,
       BrImm,
       Old_PC_Four,

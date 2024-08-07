@@ -18,10 +18,11 @@ module Controller (
     output logic [1:0] ALUOp,  //00: LW/SW; 01:Branch; 10: Rtype
     output logic Branch,  //0: branch is not taken; 1: branch is taken
     output logic Jump,
-    output logic JumpReg
+    output logic JumpReg,
+    output logic Halt
 );
 
-  logic [6:0] R_TYPE, LOAD, STORE, BR, I_TYPE, LUI, JAL, JALR;
+  logic [6:0] R_TYPE, LOAD, STORE, BR, I_TYPE, LUI, JAL, JALR, HALT;
 
   assign R_TYPE = 7'b0110011;  // instrucoes reg
   assign LOAD = 7'b0000011;  // instrucoes de load
@@ -31,6 +32,7 @@ module Controller (
   assign LUI = 7'b0110111; // instrucao lui
   assign JAL = 7'b1101111; // instrucao jump
   assign JALR = 7'b1100111; // instrucao jump register
+  assign HALT = 7'b1111111;  // instrucao halt
 
 
 // ajustar as condicoes 
@@ -43,5 +45,6 @@ module Controller (
   assign ALUOp[1] = (Opcode == R_TYPE || Opcode == I_TYPE || Opcode == JALR ||Opcode == LUI);
   assign Branch = (Opcode == BR);
   assign Jump = (Opcode == JAL || Opcode == JALR);
-  assign JumpReg = (Opcode == JALR); 
+  assign JumpReg = (Opcode == JALR);
+  assign Halt = (Opcode == HALT); 
 endmodule
