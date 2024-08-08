@@ -6,7 +6,7 @@ Segue o detalhamento de cada alteração feita para implementação das instruç
 
 ## Arquivos alterados
 
-- ALUController.sv
+- ([`ALUController.sv`](/design/ALUController.sv)) 
 - BranchUnit.sv
 - Controller.sv
 - Datapath.sv
@@ -16,3 +16,8 @@ Segue o detalhamento de cada alteração feita para implementação das instruç
 - datamemory.sv
 - imm_Gen.sv
 - assembler.py ([`verif`](/verif))
+
+---
+
+## Instruções aritméticas
+
