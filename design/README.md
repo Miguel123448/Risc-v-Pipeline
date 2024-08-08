@@ -35,7 +35,7 @@ add, sub, addi, or, and, xor, slt, slti, srai, slli, srli, beq, bge, blt, bne
 
   - Dentro de alu.sv, em um always comb, cada operação é selecionada com base em um registrador de 4 bits (a escolha dos 4 bits para cada instrução foi feita de forma aleatória, sem seguir um padrão)
   
--ALUController.sv
+- ALUController.sv
 
   - Aqui é feito um always comb para passar cada instrução para sua devida operação.
   - Inicialmente faz um case de ALUOp. ALUOp = 00: LOAD-STORE, ALUOp = 01: Branch, ALUOp = 10: Rtype, Itype, ALUOp = 11: Jump, Lui
