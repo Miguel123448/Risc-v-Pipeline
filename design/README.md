@@ -15,4 +15,4 @@ Segue o detalhamento de cada alteração feita para implementação das instruç
 - alu.sv
 - datamemory.sv
 - imm_Gen.sv
-- assembler.py ([`verif`](/Risc-v-Pipeline/verif))
+- assembler.py ([`verif`](/verif))
