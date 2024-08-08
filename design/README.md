@@ -70,7 +70,7 @@ lw,lh,lb,lbu,sw,sh,sb
 
 ### Modificações feitas
 
--datamemory.sv
+- datamemory.sv
 
   - Dentro do always, se MemRead for 1, as instruções de load são chamadas, caso MemWrite seja 1, as instruções de store são chamadas.
   - É utilizado o funct3 de cada instrução.
