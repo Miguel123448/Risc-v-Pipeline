@@ -35,7 +35,7 @@ module Controller (
   assign HALT = 7'b1111111;  // instrucao halt
 
 
-// ajustar as condicoes 
+
   assign ALUSrc = (Opcode == LOAD || Opcode == STORE || Opcode == I_TYPE || Opcode == JALR || Opcode == LUI);
   assign MemtoReg = (Opcode == LOAD);
   assign RegWrite = (Opcode == R_TYPE || Opcode == LOAD || Opcode == LUI || Opcode == JAL || Opcode == JALR ||Opcode == I_TYPE);
