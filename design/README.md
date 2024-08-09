@@ -44,7 +44,7 @@ add, sub, addi, or, and, xor, slt, slti, srai, slli, srli, beq, bge, blt, bne
   
 - imm_Gen
 
-  - Nesse arquivo precisamos adicionar o imm_out do I-type (sinceramente, de tudo, foi a única coisa que eu não entendi).
+  - Nesse arquivo precisamos adicionar o imm_out do I-type.
   
 - Controller.sv
 
