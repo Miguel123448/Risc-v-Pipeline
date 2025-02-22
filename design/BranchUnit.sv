@@ -26,7 +26,7 @@ module BranchUnit #(
   assign Branch_Sel = (Branch && AluResult[0]) || Jump;  // 0:Branch is taken; 1:Branch is not taken
 
   assign BrPC = (Branch_Sel) ? PC_Imm : ((Halt) ? PC_Full : 0);  // Branch -> PC+Imm   // Otherwise, If halt -> PC_Full (brake pc) // otherwise, 0
-  assign PcSel = Branch_Sel || Halt;  // 1:branch is taken; 0:branch is not taken(choose pc+4)
+  assign PcSel = Branch_Sel || Halt || Jal;  // 1:branch is taken; 0:branch is not taken(choose pc+4)
 
 
 endmodule
