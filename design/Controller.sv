@@ -41,7 +41,7 @@ module Controller (
   assign RegWrite = (Opcode == R_TYPE || Opcode == LOAD || Opcode == LUI || Opcode == JAL || Opcode == JALR ||Opcode == I_TYPE);
   assign MemRead = (Opcode == LOAD);
   assign MemWrite = (Opcode == STORE);
-  assign ALUOp[0] = (Opcode == BR || Opcode == JALR || Opcode == LUI);
+  assign ALUOp[0] = (Opcode == BR || Opcode == JALR || Opcode == LUI || Opcode == JAL);
   assign ALUOp[1] = (Opcode == R_TYPE || Opcode == I_TYPE || Opcode == JALR ||Opcode == LUI);
   assign Branch = (Opcode == BR);
   assign Jump = (Opcode == JAL || Opcode == JALR);
